@@ -1,4 +1,21 @@
-var mapf = function(){emit(this.Subject, this.marks);}
- var redf = function(Subject, Marks){return Array.sum(Marks)}
-db.student.mapReduce(mapf, redf, {out:"MARKS"});
-db.MARKS.find()
+> var mapf = function(){emit(this.sub, this.marks);}
+> var redf = function(sub, Marks){return Array.sum(Marks)}
+
+> db.dbms.mapReduce(mapf, redf, {out:"MARKS"});
+{
+	"result" : "MARKS",
+	"timeMillis" : 147,
+	"counts" : {
+		"input" : 3,
+		"emit" : 3,
+		"reduce" : 0,
+		"output" : 3
+	},
+	"ok" : 1
+}
+> db.MARKS.find()
+{ "_id" : "TOC", "value" : 500 }
+{ "_id" : "dbms", "value" : 900 }
+{ "_id" : "toc", "value" : 800 }
+> 
+
