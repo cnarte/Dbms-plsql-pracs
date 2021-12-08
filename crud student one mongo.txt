@@ -1,209 +1,107 @@
-use college
-switched to db college
-> show collections;
-marks
-> db.createCollection("dbms");   
+
+> db.createCollection('dbms')
 { "ok" : 1 }
-> show collections;
-dbms
-marks
-> dbms.marks.drop();
-uncaught exception: ReferenceError: dbms is not defined :
-@(shell):1:1
-> db.marks.drop();
-true
-> show collections;
-dbms
-> db.dbms.insertOne({
-... Name:"Madhukar",
-... City:"Alwar",
-... Rollno:"3325"
-... })
+> db.dbms.insertOne({ Name:"Ankit",class:"comp",  Rollno:3308, sub:"TOC", marks: 500})
 {
-        "acknowledged" : true,
-        "insertedId" : ObjectId("6195cee37f5a68ae7636c0bc")
+	"acknowledged" : true,
+	"insertedId" : ObjectId("61b0741db46077ea2fa3177a")
 }
-> 
->
-> db.dbms.insertMany(
-... [
-...  {
-...   Name:"Navneet",
-...   City:"Kabul",
-...   Rollno:"3332"
-...   },
-...   {
-...    Name:"Mookool",
-...    City:"Rishikesh",
-...    Rollno:"3328"
-...   },
-...   {
-...    Name:"Nimkhil",
-...    City:"Gurugram",
-...    Rollno:"3333"
-...   }
-... ]
-... )
+> db.dbms.insertOne({ Name:"nikhil",class:"compa",  Rollno:3308, sub:"dbms", marks: 900})
 {
-        "acknowledged" : true,
-        "insertedIds" : [
-                ObjectId("6195cfd17f5a68ae7636c0bd"),
-                ObjectId("6195cfd17f5a68ae7636c0be"),
-                ObjectId("6195cfd17f5a68ae7636c0bf")
-        ]
+	"acknowledged" : true,
+	"insertedId" : ObjectId("61b07431b46077ea2fa3177b")
 }
->
->
->
-> db.dbms.find();
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
->
->
-> db.dbms.findOne({City:"Kabul"});
+> db.dbms.insertOne({ Name:"lawer",class:"mech",  Rollno:3388, sub:"toc", marks: 800})
 {
-        "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"),
-        "Name" : "Navneet",
-        "City" : "Kabul",
-        "Rollno" : "3332"
+	"acknowledged" : true,
+	"insertedId" : ObjectId("61b0744fb46077ea2fa3177c")
 }
-> 
-> dbms.insertOne({
-... Name:"Navneet Jr.",
-... City:"Kabul",
-... Rollno:6678
-... ; 
-... )}
-uncaught exception: SyntaxError: missing } after property list :
-@(shell):5:0
->       
->
->
-> db.dbms.insertOne({
-... Name:"Navneet Jr",
-... City:"Kabul",
-... Rollno:"7654"
-... })
+> db.dbms.find().pretty()
 {
-        "acknowledged" : true,
-        "insertedId" : ObjectId("6195d0977f5a68ae7636c0c0")
+	"_id" : ObjectId("61b0741db46077ea2fa3177a"),
+	"Name" : "Ankit",
+	"class" : "comp",
+	"Rollno" : 3308,
+	"sub" : "TOC",
+	"marks" : 500
 }
->
->
-> db.dbms.findMany({City:"Kabul"});
-uncaught exception: TypeError: db.dbms.findMany is not a function :
-@(shell):1:1
-> 
->
-> db.dbms.find({City:"Kabul"});    
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
->
->
->
-> db.dbms.find({"Rollno":{$lt:3333}});
->
-> ;
-> );
-uncaught exception: SyntaxError: expected expression, got ')' :
-@(shell):1:0
->
->
->
-> db.dbms.find({"Rollno":"3333"});
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
-> db.dbms.find({"Rollno":3333});  
-> ;
-> );
-uncaught exception: SyntaxError: expected expression, got ')' :
-@(shell):1:0
->
->
->
->
-> db.dbms.find({"Rollno":{$lt:"3333"}});
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
->
->
-> db.dbms.find({"Rollno":{$gt:"3333"}});
-{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
->
-> db.dbms.find({"Rollno":{$ne:"3333"}});
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
-{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
->
->
->
-> db.dbms.find({"Rollno":{$in:["3325","3333"]}});
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
->
->
->
-> db.dbms.find({$and:[{"Rollno":"3325"},{"City":"Alwar"}]});
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
->
->
-> db.dbms.find({$or:[{"Rollno":"3325"},{"City":"Kabul"}]});
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
->
->
-> db.dbms.update({"City":"Kabul"},{$set:{"City":"POK"}});
+{
+	"_id" : ObjectId("61b07431b46077ea2fa3177b"),
+	"Name" : "nikhil",
+	"class" : "compa",
+	"Rollno" : 3308,
+	"sub" : "dbms",
+	"marks" : 900
+}
+{
+	"_id" : ObjectId("61b0744fb46077ea2fa3177c"),
+	"Name" : "lawer",
+	"class" : "mech",
+	"Rollno" : 3388,
+	"sub" : "toc",
+	"marks" : 800
+}
+> db.dbms.find({"Rollno":{$eq:3308}});
+{ "_id" : ObjectId("61b0741db46077ea2fa3177a"), "Name" : "Ankit", "class" : "comp", "Rollno" : 3308, "sub" : "TOC", "marks" : 500 }
+{ "_id" : ObjectId("61b07431b46077ea2fa3177b"), "Name" : "nikhil", "class" : "compa", "Rollno" : 3308, "sub" : "dbms", "marks" : 900 }
+>  db.dbms.update({"class":"mech"},{$set:{"Rollno":7320}});
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
->
->
-> db.dbms.find().pretty();
+> db.dbms.find().pretty()
 {
-        "_id" : ObjectId("6195cee37f5a68ae7636c0bc"),
-        "Name" : "Madhukar",
-        "City" : "Alwar",
-        "Rollno" : "3325"
+	"_id" : ObjectId("61b0741db46077ea2fa3177a"),
+	"Name" : "Ankit",
+	"class" : "comp",
+	"Rollno" : 3308,
+	"sub" : "TOC",
+	"marks" : 500
 }
 {
-        "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"),
-        "Name" : "Navneet",
-        "City" : "POK",
-        "Rollno" : "3332"
+	"_id" : ObjectId("61b07431b46077ea2fa3177b"),
+	"Name" : "nikhil",
+	"class" : "compa",
+	"Rollno" : 3308,
+	"sub" : "dbms",
+	"marks" : 900
 }
 {
-        "_id" : ObjectId("6195cfd17f5a68ae7636c0be"),
-        "Name" : "Mookool",
-        "City" : "Rishikesh",
-        "Rollno" : "3328"
+	"_id" : ObjectId("61b0744fb46077ea2fa3177c"),
+	"Name" : "lawer",
+	"class" : "mech",
+	"Rollno" : 7320,
+	"sub" : "toc",
+	"marks" : 800
 }
+> db.dbms.insertOne({ Name:"hitler",class:"mech",  Rollno:3352, sub:"genocide", marks: 897})
 {
-        "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"),
-        "Name" : "Nimkhil",
-        "City" : "Gurugram",
-        "Rollno" : "3333"
+	"acknowledged" : true,
+	"insertedId" : ObjectId("61b0751bb46077ea2fa3177d")
 }
-{
-        "_id" : ObjectId("6195d0977f5a68ae7636c0c0"),
-        "Name" : "Navneet Jr",
-        "City" : "Kabul",
-        "Rollno" : "7654"
-}
->
->
->
-> db.dbms.updateMany({"Rollno":{$lt:"3332"}},{$set:{"City":"Pune"}});
-{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
->
->
-> db.dbms.remove({"Rollno":{$gt:"4000"}});
+> db.dbms.remove({"Rollno" : {$eq : 3352}})
 WriteResult({ "nRemoved" : 1 })
->
-> db.dbms.find();
-{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Pune", "Rollno" : "3325" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "POK", "Rollno" : "3332" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Pune", "Rollno" : "3328" }
-{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
->
+> db.dbms.find().pretty()
+{
+	"_id" : ObjectId("61b0741db46077ea2fa3177a"),
+	"Name" : "Ankit",
+	"class" : "comp",
+	"Rollno" : 3308,
+	"sub" : "TOC",
+	"marks" : 500
+}
+{
+	"_id" : ObjectId("61b07431b46077ea2fa3177b"),
+	"Name" : "nikhil",
+	"class" : "compa",
+	"Rollno" : 3308,
+	"sub" : "dbms",
+	"marks" : 900
+}
+{
+	"_id" : ObjectId("61b0744fb46077ea2fa3177c"),
+	"Name" : "lawer",
+	"class" : "mech",
+	"Rollno" : 7320,
+	"sub" : "toc",
+	"marks" : 800
+}
+> 
+

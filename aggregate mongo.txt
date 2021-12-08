@@ -1,221 +1,90 @@
-
->   use college;
-
-switched to db college
-
->
-
->
-
->
-
-> db.marksheet.aggregate([]);
-
-{ "_id" : ObjectId("619c738d449e2eb69ca68353"), "Name" : "Madhukar", "Rollno" : 3325, "PRN" : 1234, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 89 }
-
-{ "_id" : ObjectId("619c73a3449e2eb69ca68354"), "Name" : "Nikhil", "Rollno" : 3326, "PRN" : 1235, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 95 }
-
-{ "_id" : ObjectId("619c73b8449e2eb69ca68355"), "Name" : "Navneet", "Rollno" : 3329, "PRN" : 1236, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 67 }
-
-{ "_id" : ObjectId("619c73d9449e2eb69ca68356"), "Name" : "Shemkhar", "Rollno" : 4329, "PRN" : 9236, "Branch" : "IT", "Subject" : "OOP", "Marks" : 76 }
-
-{ "_id" : ObjectId("619c73ee449e2eb69ca68357"), "Name" : "Govind", "Rollno" : 4349, "PRN" : 9256, "Branch" : "IT", "Subject" : "OOP", "Marks" : 91 }
-
-{ "_id" : ObjectId("619c740e449e2eb69ca68358"), "Name" : "Alok", "Rollno" : 2349, "PRN" : 7256, "Branch" : "MECH", "Subject" : "SME", "Marks" : 45 }
-
-{ "_id" : ObjectId("619c7424449e2eb69ca68359"), "Name" : "Rajyog", "Rollno" : 2389, "PRN" : 7250, "Branch" : "MECH", "Subject" : "SME", "Marks" : 99 }
-
-{ "_id" : ObjectId("619c7447449e2eb69ca6835a"), "Name" : "Saveen", "Rollno" : 3355, "PRN" : 7456, "Branch" : "ENTC", "Subject" : "BXE", "Marks" : 77 }
-
-{ "_id" : ObjectId("619c745e449e2eb69ca6835b"), "Name" : "Mukul", "Rollno" : 3333, "PRN" : 8888, "Branch" : "ENTC", "Subject" : "BXE", "Marks" : 88 }
-
->
-
->
-
->
-
-> db.marksheet.aggregate([{$group:{_id:"$Branch",Strength:{$sum:1}}}])
-
-{ "_id" : "COMP", "Strength" : 3 }
-
-{ "_id" : "IT", "Strength" : 2 }
-
-{ "_id" : "MECH", "Strength" : 2 }
-
-{ "_id" : "ENTC", "Strength" : 2 }
-
->
-
->
-
->
-
-> db.marksheet.aggregate([{$group:{_id:"$Branch",Topper:{$max:"$Marks"}}}])  
-
-{ "_id" : "COMP", "Topper" : 95 }
-
-{ "_id" : "IT", "Topper" : 91 }
-
-{ "_id" : "MECH", "Topper" : 99 }
-
-{ "_id" : "ENTC", "Topper" : 88 }
-
->
-
->
-
-> db.marksheet.aggregate([{$group:{_id:"$Subject",Topper:{$max:"$Marks"}}}])
-
-{ "_id" : "DSA", "Topper" : 95 }
-
-{ "_id" : "OOP", "Topper" : 91 }
-
-{ "_id" : "SME", "Topper" : 99 }
-
-> db.marksheet.aggregate([{$group:{_id:"$Subject",Topper:{$avg:"$Marks"}}}])
-
-{ "_id" : "DSA", "Topper" : 83.66666666666667 }
-
-{ "_id" : "OOP", "Topper" : 83.5 }
-
-{ "_id" : "SME", "Topper" : 72 }
-
-{ "_id" : "BXE", "Topper" : 82.5 }
-
->
-
->
-
->
-
-> db.marksheet.aggregate([{$match:{Subject:"DSA"}},{$group:{_id:"$Subject",MinimumMarks:{$min:"$Marks"}}}])
-
-{ "_id" : "DSA", "MinimumMarks" : 67 }
-
->
-
->
-
->
-
-> db.marksheet.aggregate([{$match:{Subject:"DSA"}},{$sort:{Marks:1}}])
-
-{ "_id" : ObjectId("619c73b8449e2eb69ca68355"), "Name" : "Navneet", "Rollno" : 3329, "PRN" : 1236, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 67 }
-
-{ "_id" : ObjectId("619c738d449e2eb69ca68353"), "Name" : "Madhukar", "Rollno" : 3325, "PRN" : 1234, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 89 }
-
-{ "_id" : ObjectId("619c73a3449e2eb69ca68354"), "Name" : "Nikhil", "Rollno" : 3326, "PRN" : 1235, "Branch" : "COMP", "Subject" : "DSA", "Marks"  : 67 }: 95 }                                                                                                                                          " : 89 }
-
->                                                                                                                                               : 95 }
-
->
-
-> db.marksheet.aggregate([{$match:{Subject:"DSA"}},{$sort:{Marks:1}},{$limit:1}])
-
-{ "_id" : ObjectId("619c73b8449e2eb69ca68355"), "Name" : "Navneet", "Rollno" : 3329, "PRN" : 1236, "Branch" : "COMP", "Subject" : "DSA", "Marks" : 67 }                                                                                                                                          : 67 }
-
->
-
->
-
-> db.marksheet.aggregate([{$match:{Subject:"DSA"}},{$sort:{Marks:-1}},{$limit:1},{$group:{_id:"$Subject"}}])
-
-{ "_id" : "DSA" }
-
->
-
-> ^C
-
-
-
-> db.marksheet.createIndex({"Rollno":1,"PRN":-1});
-
+> db.dbms.aggregate([])
+{ "_id" : ObjectId("61b0741db46077ea2fa3177a"), "Name" : "Ankit", "class" : "comp", "Rollno" : 3308, "sub" : "TOC", "marks" : 500 }
+{ "_id" : ObjectId("61b07431b46077ea2fa3177b"), "Name" : "nikhil", "class" : "compa", "Rollno" : 3308, "sub" : "dbms", "marks" : 900 }
+{ "_id" : ObjectId("61b0744fb46077ea2fa3177c"), "Name" : "lawer", "class" : "mech", "Rollno" : 7320, "sub" : "toc", "marks" : 800 }
+> db.dbms.aggregate([]).pretty()
 {
-
-        "numIndexesBefore" : 1,
-
-        "numIndexesAfter" : 2,
-
-        "createdCollectionAutomatically" : false,
-
-        "ok" : 1
-
+	"_id" : ObjectId("61b0741db46077ea2fa3177a"),
+	"Name" : "Ankit",
+	"class" : "comp",
+	"Rollno" : 3308,
+	"sub" : "TOC",
+	"marks" : 500
 }
+{
+	"_id" : ObjectId("61b07431b46077ea2fa3177b"),
+	"Name" : "nikhil",
+	"class" : "compa",
+	"Rollno" : 3308,
+	"sub" : "dbms",
+	"marks" : 900
+}
+{
+	"_id" : ObjectId("61b0744fb46077ea2fa3177c"),
+	"Name" : "lawer",
+	"class" : "mech",
+	"Rollno" : 7320,
+	"sub" : "toc",
+	"marks" : 800
+}
+> db.dbms.aggregate([{$group:{_id:"$class",Strength:{$sum:1}}}])
+{ "_id" : "mech", "Strength" : 1 }
+{ "_id" : "compa", "Strength" : 1 }
+{ "_id" : "comp", "Strength" : 1 }
+>  db.dbms.aggregate([{$group:{_id:"$class",Topper:{$max:"$Marks"}}}])
+{ "_id" : "mech", "Topper" : null }
+{ "_id" : "compa", "Topper" : null }
+{ "_id" : "comp", "Topper" : null }
+> db.dbms.aggregate([{$group:{_id:"$class",Topper:{$max:"$marks"}}}])
+{ "_id" : "mech", "Topper" : 800 }
+{ "_id" : "compa", "Topper" : 900 }
+{ "_id" : "comp", "Topper" : 500 }
+> db.dbms.aggregate([{$group:{_id:"$sub",Topper:{$max:"$marks"}}}]).pretty()
+{ "_id" : "toc", "Topper" : 800 }
+{ "_id" : "dbms", "Topper" : 900 }
+{ "_id" : "TOC", "Topper" : 500 }
+> db.dbms.aggregate([{$group:{_id:"$sub",Topper:{$avg:"$marks"}}}])
+{ "_id" : "toc", "Topper" : 800 }
+{ "_id" : "dbms", "Topper" : 900 }
+{ "_id" : "TOC", "Topper" : 500 }
+> db.dbms.aggregate([{$match:{sub:"toc"}},{$group:{_id:"$sub",Minimummarks:{$min:"$marks"}}}])
 
+{ "_id" : "toc", "Minimummarks" : 800 }
+> db.dbms.createIndex({"Rollno":1});
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.dbms.getIndexes();
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "college.dbms"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"Rollno" : 1
+		},
+		"name" : "Rollno_1",
+		"ns" : "college.dbms"
+	}
+]
+> db.dbms.dropIndex({"Rollno":3308});
+{
+	"nIndexesWas" : 2,
+	"ok" : 0,
+	"errmsg" : "can't find index with key: { Rollno: 3308.0 }",
+	"code" : 27,
+	"codeName" : "IndexNotFound"
+}
+> db.dbms.dropIndex({"Rollno":1});
+{ "nIndexesWas" : 2, "ok" : 1 }
 > 
 
->
-
-> db.marksheet.getIndexes();
-
-[
-
-        {
-
-nikhil comp 207E, [08/12/21 2:19 PM]
-"v" : 2,
-
-                "key" : {
-
-                        "_id" : 1
-
-                },
-
-                "name" : "_id_"
-
-        },
-
-        {
-
-                "v" : 2,
-
-                "key" : {
-
-                        "Rollno" : 1,
-
-                        "PRN" : -1
-
-                },
-
-                "name" : "Rollno_1_PRN_-1"
-
-        }
-
-]
-
->
-
->
-
->
-
-> db.marksheet.dropIndex({KEY:1});
-
-{
-
-        "ok" : 0,
-
-        "errmsg" : "can't find index with key: { KEY: 1.0 }",
-
-        "code" : 27,
-
-        "codeName" : "IndexNotFound"
-
-}
-
->
-
->
-
-> db.marksheet.dropIndex({"Rollno":1});
-
-{
-
-        "ok" : 0,
-
-        "errmsg" : "can't find index with key: { Rollno: 1.0 }",
-
-        "code" : 27,
-
-        "codeName" : "IndexNotFound"
