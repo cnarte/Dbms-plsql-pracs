@@ -1,0 +1,209 @@
+use college
+switched to db college
+> show collections;
+marks
+> db.createCollection("dbms");   
+{ "ok" : 1 }
+> show collections;
+dbms
+marks
+> dbms.marks.drop();
+uncaught exception: ReferenceError: dbms is not defined :
+@(shell):1:1
+> db.marks.drop();
+true
+> show collections;
+dbms
+> db.dbms.insertOne({
+... Name:"Madhukar",
+... City:"Alwar",
+... Rollno:"3325"
+... })
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6195cee37f5a68ae7636c0bc")
+}
+> 
+>
+> db.dbms.insertMany(
+... [
+...  {
+...   Name:"Navneet",
+...   City:"Kabul",
+...   Rollno:"3332"
+...   },
+...   {
+...    Name:"Mookool",
+...    City:"Rishikesh",
+...    Rollno:"3328"
+...   },
+...   {
+...    Name:"Nimkhil",
+...    City:"Gurugram",
+...    Rollno:"3333"
+...   }
+... ]
+... )
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6195cfd17f5a68ae7636c0bd"),
+                ObjectId("6195cfd17f5a68ae7636c0be"),
+                ObjectId("6195cfd17f5a68ae7636c0bf")
+        ]
+}
+>
+>
+>
+> db.dbms.find();
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
+>
+>
+> db.dbms.findOne({City:"Kabul"});
+{
+        "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"),
+        "Name" : "Navneet",
+        "City" : "Kabul",
+        "Rollno" : "3332"
+}
+> 
+> dbms.insertOne({
+... Name:"Navneet Jr.",
+... City:"Kabul",
+... Rollno:6678
+... ; 
+... )}
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):5:0
+>       
+>
+>
+> db.dbms.insertOne({
+... Name:"Navneet Jr",
+... City:"Kabul",
+... Rollno:"7654"
+... })
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6195d0977f5a68ae7636c0c0")
+}
+>
+>
+> db.dbms.findMany({City:"Kabul"});
+uncaught exception: TypeError: db.dbms.findMany is not a function :
+@(shell):1:1
+> 
+>
+> db.dbms.find({City:"Kabul"});    
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
+>
+>
+>
+> db.dbms.find({"Rollno":{$lt:3333}});
+>
+> ;
+> );
+uncaught exception: SyntaxError: expected expression, got ')' :
+@(shell):1:0
+>
+>
+>
+> db.dbms.find({"Rollno":"3333"});
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
+> db.dbms.find({"Rollno":3333});  
+> ;
+> );
+uncaught exception: SyntaxError: expected expression, got ')' :
+@(shell):1:0
+>
+>
+>
+>
+> db.dbms.find({"Rollno":{$lt:"3333"}});
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
+>
+>
+> db.dbms.find({"Rollno":{$gt:"3333"}});
+{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
+>
+> db.dbms.find({"Rollno":{$ne:"3333"}});
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Rishikesh", "Rollno" : "3328" }
+{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
+>
+>
+>
+> db.dbms.find({"Rollno":{$in:["3325","3333"]}});
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
+>
+>
+>
+> db.dbms.find({$and:[{"Rollno":"3325"},{"City":"Alwar"}]});
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+>
+>
+> db.dbms.find({$or:[{"Rollno":"3325"},{"City":"Kabul"}]});
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Alwar", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "Kabul", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195d0977f5a68ae7636c0c0"), "Name" : "Navneet Jr", "City" : "Kabul", "Rollno" : "7654" }
+>
+>
+> db.dbms.update({"City":"Kabul"},{$set:{"City":"POK"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+>
+> db.dbms.find().pretty();
+{
+        "_id" : ObjectId("6195cee37f5a68ae7636c0bc"),
+        "Name" : "Madhukar",
+        "City" : "Alwar",
+        "Rollno" : "3325"
+}
+{
+        "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"),
+        "Name" : "Navneet",
+        "City" : "POK",
+        "Rollno" : "3332"
+}
+{
+        "_id" : ObjectId("6195cfd17f5a68ae7636c0be"),
+        "Name" : "Mookool",
+        "City" : "Rishikesh",
+        "Rollno" : "3328"
+}
+{
+        "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"),
+        "Name" : "Nimkhil",
+        "City" : "Gurugram",
+        "Rollno" : "3333"
+}
+{
+        "_id" : ObjectId("6195d0977f5a68ae7636c0c0"),
+        "Name" : "Navneet Jr",
+        "City" : "Kabul",
+        "Rollno" : "7654"
+}
+>
+>
+>
+> db.dbms.updateMany({"Rollno":{$lt:"3332"}},{$set:{"City":"Pune"}});
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+>
+>
+> db.dbms.remove({"Rollno":{$gt:"4000"}});
+WriteResult({ "nRemoved" : 1 })
+>
+> db.dbms.find();
+{ "_id" : ObjectId("6195cee37f5a68ae7636c0bc"), "Name" : "Madhukar", "City" : "Pune", "Rollno" : "3325" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bd"), "Name" : "Navneet", "City" : "POK", "Rollno" : "3332" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0be"), "Name" : "Mookool", "City" : "Pune", "Rollno" : "3328" }
+{ "_id" : ObjectId("6195cfd17f5a68ae7636c0bf"), "Name" : "Nimkhil", "City" : "Gurugram", "Rollno" : "3333" }
+>
