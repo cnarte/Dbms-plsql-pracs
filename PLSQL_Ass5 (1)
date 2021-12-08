@@ -1,0 +1,46 @@
+declare
+    issue_date Borrower.DateofIssue%type;
+
+    present_date date;
+    roll integer;
+    book varchar(20);
+    no_of_days integer;
+    fine_amt integer;	
+begin
+    roll := 4;
+    book := 'SDL';
+    dbms_output.put_line('Student Roll No = '|| roll);
+    dbms_output.put_line('Book Name is  = '|| book);
+
+    select DateofIssue into issue_date from Borrower 
+    where roll_id = roll and NameofBook = book;
+    present_date := TO_DATE(sysdate, 'MM-DD-YYYY');
+
+    no_of_days := present_date - issue_date;
+    dbms_output.put_line('Book '|| book || ' was held by Student ' || roll || ' for ' || no_of_days || ' number of days.');
+
+    if no_of_days < 15 then
+        fine_amt := 0;
+    elsif no_of_days > 15 and no_of_days <= 30 then
+        fine_amt := (no_of_days-15) * 5;
+    else
+        fine_amt := 15*5 + (no_of_days - 30)*50;
+    end if;
+    
+    dbms_output.put_line('Fine to be paid: '|| fine_amt);
+
+    if fine_amt <> 0 then
+        insert into Fine values(roll, present_date, fine_amt);
+        dbms_output.put_line('Fine Updated!');
+    end if;
+
+    update Borrower set status = 'R' where roll_id = roll and NameofBook = book;
+
+    exception
+    
+    when no_data_found then
+        dbms_output.put_line('No Such Borrower Present');
+
+end;
+
+

@@ -1,0 +1,53 @@
+create   table   o_rollcall(roll_no   int,name   varchar(20), address varchar(20));
+
+/
+
+create   table   n_rollcall(roll_no   int,name varchar(20),address varchar(20));
+
+/
+
+insert into o_rollcall values('1','Ankit','ranchi');
+
+
+declare
+    num int;
+    roll O_RollCall.roll_no%type;
+    s_name O_RollCall.name%type;
+    address O_RollCall.address%type;
+    
+    cursor O_Cursor is
+        select roll_no, name, address from O_RollCall;
+    cursor N_Cursor(n int) is
+        select roll_no from N_RollCall where roll_no = n;
+    cursor L_Cursor is
+        select roll_no, name, address from N_RollCall;
+begin
+    insert into O_RollCall values(5, 'Aman', 'Aalandi');
+    dbms_output.put_line(' Number of rows inserted: ' || sql % rowcount); 
+    open O_Cursor;
+        loop
+            fetch O_Cursor into roll, s_name, address;
+            exit when O_Cursor%notfound;
+            dbms_output.put_line(' ');
+            dbms_output.put_line(roll||' '||s_name||' '|| address); 
+            open N_Cursor(roll);
+                fetch N_Cursor into num;
+                if N_Cursor%notfound then
+                    insert into N_RollCall values(roll, s_name, address);
+                    dbms_output.put_line('-> '|| roll || ' data inserted into N_RollCall Table!');
+                else
+                    dbms_output.put_line('-> '|| roll||' already present in N_RollCall Table!');
+                end if;
+            close N_Cursor;
+        end loop;
+    close O_Cursor;
+
+    dbms_output.put_line(' ');
+    dbms_output.put_line('**************** Data of N_RollCall after execution is ************ ');
+    for itr in L_Cursor
+    loop
+        dbms_output.put_line(itr.roll_No || ' ' || itr.name || ' ' || itr.address); 
+    end loop;
+end;
+
+

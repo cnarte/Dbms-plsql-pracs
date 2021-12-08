@@ -1,0 +1,74 @@
+-- create table marks(roll_no integer, name varchar2(20),total_marks varchar2(20));
+
+-- select roll_no, name, total_marks from marks;
+
+-- create table result(roll_no integer,name varchar2(20),class varchar2(20));
+
+begin
+    insert into marks values(1,'Ankit',1350);
+    insert into marks values(6,'Arya',965);
+    insert into marks values(2,'Ravi',980);
+    insert into marks values(3,'Amit',890);
+    insert into marks values(10,'Anurag',815);
+    insert into marks values(4,'Ajay',740);
+    insert into marks values(5,'Rahul',900);
+    insert into marks values(7,'Savita',1400);
+    insert into marks values(8,'Sumeet',500);
+    insert into marks values(9,'Shikha',910);
+end;
+/
+
+create or replace function proc_result2 ( grade integer) return varchar2 is
+    designation varchar2(20) ;
+    begin
+        if(grade <=1500 and grade>=990) then
+            designation := 'Distinction';
+        end if;
+        if(grade<=989 and grade>=890) then 
+            designation := 'First Class';
+        end if;
+        if(grade<=889 and grade>=825) then
+            designation := 'Higher Second Class';
+        end if;
+        if(grade<=824 and grade>=750) then
+            designation := 'Second Class';
+        end if;
+        if(grade<=749 and grade>=650) then
+            designation := 'Passed';
+        end if;
+        if(grade<=649) then
+            designation := 'Fail';
+        end if;
+    return designation;
+end;
+
+/
+
+create or replace function final_result1(R1 integer) return integer  is
+    fmarks integer;
+    grade varchar2(20);
+    stud_name varchar2(20);
+begin
+    select total_marks,name into fmarks,stud_name from marks where marks.roll_no = R1;
+    grade := proc_result2(fmarks);
+        insert into result values(R1,stud_name, grade); 
+    return R1;
+end;
+
+/
+
+declare
+   x number := 3;
+   temp integer; 
+begin 
+    loop
+        temp := final_result1(x);
+        x := x + 1; 
+        exit when x > 10; 
+    end loop; 
+end;
+
+/
+
+select * from result;
+

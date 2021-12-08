@@ -1,0 +1,139 @@
+/*
+create table borrower(rollno integer , name varchar(50) , dateOfIssue date , nameOfBook varchar(50) , status varchar(5));
+*/
+/*
+begin
+insert into borrower values (1 , 'shushant' , '02/03/2020' , 'Dangal' , 'I');
+insert into borrower values (2 , 'shubham' , '02/03/2020' , 'Newton' , 'I');
+insert into borrower values (3 , 'irshad' , '12/03/2020' , 'Hardy' , 'I');
+insert into borrower values (4 , 'tanuj' , '12/01/2020' , 'Extinction' , 'I');
+end;
+*/
+/*
+select * from borrower;
+*/
+/*
+create table fine (rollno integer , currentDate date , amount integer);
+*/
+
+
+
+/*
+/*
+CREATE OR REPLACE FUNCTION calfine (Roll integer) RETURN integer is
+
+
+
+status char;
+ret date;
+issue date;
+cnt integer;
+currDate date;
+fine5 integer := 5;
+fine50 integer := 50;
+totalFine integer;
+BEGIN
+select dateOfIssue , status into issue , status from borrower where rollno=Roll;
+dbms_output.put_line('Issue date : ' || issue);
+currDate := SYSDATE;
+cnt := currDate - issue;
+dbms_output.put_line('Total Days : ' || cnt);
+IF status = 'R' THEN
+dbms_output.put_line('Book already returned...!');
+totalFine := 0;
+ELSIF cnt <= 15 THEN
+totalFine := 0;
+ELSIF (cnt > 30) THEN
+totalFine := ((fine50*(cnt-30)) + (fine5*15));
+--insert into fine values (Roll,currDate,totalFine);
+--UPDATE borrower set status = 'R' WHERE rollno = Roll;
+ELSE
+totalFine := fine5*(cnt-15);
+--insert into fine values (Roll,currDate,totalFine);
+--UPDATE borrower set status = 'R' WHERE rollno = Roll;
+END IF;
+
+return totalFine;
+
+EXCEPTION
+WHEN no_data_found THEN
+dbms_output.put_line('No Student with that Rollno found...');
+return 0;
+WHEN others THEN
+dbms_output.put_line('Error!');
+return 0;
+END;
+*/
+/*
+
+
+
+
+create or replace FUNCTION submit (Roll integer) RETURN integer is
+status char;
+ret date;
+issue date;
+currDate date;
+totalFine integer := calfine(Roll);
+BEGIN
+select dateOfIssue , status into issue , status from borrower where rollno=Roll;
+currDate := SYSDATE;
+IF status = 'I' THEN
+dbms_output.put_line('Your book has been returned');
+dbms_output.put_line('Total fine : ' || totalFine || '/-');
+insert into fine values (Roll,currDate,totalFine);
+UPDATE borrower set status = 'R' WHERE rollno = Roll;
+END IF;
+
+return 0;
+EXCEPTION
+WHEN no_data_found THEN
+dbms_output.put_line('No Student with that Rollno found...');
+return 0;
+WHEN others THEN
+dbms_output.put_line('Error!');
+return 0;
+
+END;
+*/
+
+
+
+/*
+begin
+dbms_output.put_line('Total fine : ' || calfine(1) || '/-');
+end;
+*/
+
+
+
+/*
+declare
+temp integer;
+begin
+temp := submit(1);
+end;
+
+
+
+*/
+
+
+
+/*
+declare
+temp integer;
+begin
+temp := submit(2);
+end;
+
+
+
+*/
+
+
+
+/*
+select * from borrower;
+select * from fine;
+*/
