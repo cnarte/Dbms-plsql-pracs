@@ -1,0 +1,1 @@
+db.book.insert({Title:"mongodb",Description:"educational",By:"John",URL:"198-00",Tag:"computer",Likes:100})

@@ -1,0 +1,4 @@
+var mapf = function(){emit(this.Subject, this.marks);}
+ var redf = function(Subject, Marks){return Array.sum(Marks)}
+db.student.mapReduce(mapf, redf, {out:"MARKS"});
+db.MARKS.find()
