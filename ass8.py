@@ -39,9 +39,9 @@ def display(myCursor):
 
 def main():
     myDB = mysql.connector.connect(
-        host = "localhost",
+        host = "127.0.0.1",
         user = "root",
-        password = "Nikk@1771",
+        password = "password",
         database = "COMPUTER_DEPT"
     )
     print(f' \n Successfully Connected to --> {myDB}')
@@ -50,7 +50,7 @@ def main():
     choice = 1
     while True:
         print("\n Choose from the following --> ")
-        print(" 1. Insert \t 2. Update \t 3. Delete \t 4. Display \t 5. Exit")
+        print(" 1. Insert \n 2. Update \n 3. Delete \n 4. Display \n 5. Exit")
         choice = int(input())
         if choice == 1:
             rollNo = int(input('\t Enter Roll Number : '))
@@ -75,7 +75,7 @@ def main():
                 print(" Record Deleted Successfully!")
         
         elif choice == 4:
-            print("<------- Data of the table : Students ------> ")
+            print("<******* Data of the table : Students *******> ")
             display(myCursor)
         
         else:
